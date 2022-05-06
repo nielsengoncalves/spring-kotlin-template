@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues>
+      <ID>SpreadOperator:Application.kt$(*args)</ID>
+  </ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>Filename:com.example.template.exception.Exceptions.kt:1</ID>
+    <ID>MatchingDeclarationName:Exceptions.kt$ResourceNotFoundException : RuntimeException</ID>
+  </CurrentIssues>
+</SmellBaseline>

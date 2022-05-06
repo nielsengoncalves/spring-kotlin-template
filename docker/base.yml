@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  spring-kotlin-template-db:
+    container_name: spring-kotlin-template-db
+    image: postgres
+    networks:
+      - spring-kotlin-template
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: spring_kotlin_template
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+networks:
+  spring-kotlin-template:

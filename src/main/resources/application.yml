@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_kotlin_template
+    username: admin
+    password: admin123
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 2000
+
+  flyway:
+    enabled: true
+
+feign:
+  client:
+    config:
+      github:
+        url: "https://api.github.com"
