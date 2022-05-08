@@ -5,9 +5,10 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.flywaydb.flyway") version "8.5.9"
     id("nu.studer.jooq") version "7.1.1"
-    id("io.gitlab.arturbosch.detekt").version("1.20.0")
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    idea
 }
 
 repositories {
@@ -50,6 +51,34 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+sourceSets {
+    create("integrationTest") {
+        kotlin {
+            compileClasspath += main.get().output + configurations.testRuntimeClasspath
+            runtimeClasspath += output + compileClasspath
+        }
+    }
+}
+
+val integrationTest = task<Test>("integrationTest") {
+    description = "Runs the integration tests"
+    group = "verification"
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    mustRunAfter(tasks["test"])
+}
+
+tasks.check {
+    dependsOn(integrationTest)
+}
+
+idea {
+    module {
+        testSourceDirs.addAll(kotlin.sourceSets["integrationTest"].kotlin.srcDirs)
+        testResourceDirs.addAll(kotlin.sourceSets["integrationTest"].resources.srcDirs)
+    }
 }
 
 detekt {

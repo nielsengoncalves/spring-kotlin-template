@@ -1,7 +1,6 @@
 package com.example.template.controller
 
 import com.example.template.client.GithubUser
-import com.example.template.controller.UserController
 import com.example.template.exception.ResourceNotFoundException
 import com.example.template.model.User
 import com.example.template.service.UserService
@@ -136,9 +135,9 @@ class UserControllerIntegrationTest {
     }
 
     companion object {
+        private const val githubUsername = "testuser"
         private val userId = UUID.fromString("95408c28-fcd6-427d-8f52-be64e5186b9a")
         private val currentTime = LocalDateTime.parse("2022-03-01T13:00:00Z", DateTimeFormatter.ISO_DATE_TIME)
-        private val githubUsername = "testuser"
         private val githubUser = GithubUser(
             login = githubUsername,
             name = "Test User",
