@@ -11,19 +11,19 @@ class UserRepository(
     private val dslContext: DSLContext
 ) {
 
-    fun insertUser(user: User): Int =
+    fun insert(user: User): Int =
         dslContext
             .insertInto(USERS)
             .set(user.toUsersRecord())
             .execute()
 
-    fun findUserByGithubUsername(githubUsername: String): User? =
+    fun findByGithubUsername(githubUsername: String): User? =
         dslContext
             .selectFrom(USERS)
             .where(USERS.GITHUB_USERNAME.eq(githubUsername))
             .fetchOne(UsersRecord::toUser)
 
-    fun deleteUserByGithubUsername(githubUsername: String): Int =
+    fun deleteByGithubUsername(githubUsername: String): Int =
         dslContext
             .deleteFrom(USERS)
             .where(USERS.GITHUB_USERNAME.eq(githubUsername))

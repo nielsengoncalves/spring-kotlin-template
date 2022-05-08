@@ -47,34 +47,34 @@ class UserServiceTest {
 
         @Test
         fun `it should create new user`() {
-            every { userRepository.findUserByGithubUsername(any()) } returns null
+            every { userRepository.findByGithubUsername(any()) } returns null
             every { githubClient.findGithubUser(any()) } returns githubUser
-            every { userRepository.insertUser(any()) } returns 1
+            every { userRepository.insert(any()) } returns 1
 
             val actualUser = userService.createUser(githubUsername)
 
             actualUser shouldBe user
             verify {
-                userRepository.findUserByGithubUsername(githubUsername)
+                userRepository.findByGithubUsername(githubUsername)
                 githubClient.findGithubUser(githubUsername)
-                userRepository.insertUser(user)
+                userRepository.insert(user)
             }
         }
 
         @Test
         fun `it should return existing user if the user already exists`() {
-            every { userRepository.findUserByGithubUsername(any()) } returns user
+            every { userRepository.findByGithubUsername(any()) } returns user
 
             val actualUser = userService.createUser(githubUsername)
 
             actualUser shouldBe user
-            verify { userRepository.findUserByGithubUsername(githubUsername) }
-            verify(exactly = 0) { userRepository.insertUser(any()) }
+            verify { userRepository.findByGithubUsername(githubUsername) }
+            verify(exactly = 0) { userRepository.insert(any()) }
         }
 
         @Test
         fun `it should raise IllegalArgumentException if user is not found on Github`() {
-            every { userRepository.findUserByGithubUsername(any()) } returns null
+            every { userRepository.findByGithubUsername(any()) } returns null
             every { githubClient.findGithubUser(any()) } returns null
 
             shouldThrow<IllegalArgumentException> {
@@ -82,10 +82,10 @@ class UserServiceTest {
             }
 
             verify {
-                userRepository.findUserByGithubUsername(githubUsername)
+                userRepository.findByGithubUsername(githubUsername)
                 githubClient.findGithubUser(githubUsername)
             }
-            verify(exactly = 0) { userRepository.insertUser(any()) }
+            verify(exactly = 0) { userRepository.insert(any()) }
         }
     }
 
@@ -94,23 +94,23 @@ class UserServiceTest {
 
         @Test
         fun `it should return user`() {
-            every { userRepository.findUserByGithubUsername(any()) } returns user
+            every { userRepository.findByGithubUsername(any()) } returns user
 
             val actualUser = userService.getUser(githubUsername)
 
             actualUser shouldBe user
-            verify { userRepository.findUserByGithubUsername(githubUsername) }
+            verify { userRepository.findByGithubUsername(githubUsername) }
         }
 
         @Test
         fun `it should raise ResourceNotFoundException if user is not found`() {
-            every { userRepository.findUserByGithubUsername(any()) } returns null
+            every { userRepository.findByGithubUsername(any()) } returns null
 
             assertThrows<ResourceNotFoundException> {
                 userService.getUser(githubUsername)
             }
 
-            verify { userRepository.findUserByGithubUsername(githubUsername) }
+            verify { userRepository.findByGithubUsername(githubUsername) }
         }
     }
 
@@ -118,11 +118,11 @@ class UserServiceTest {
     inner class DeleteUserTest {
         @Test
         fun `it should delete user`() {
-            every { userRepository.deleteUserByGithubUsername(any()) } returns 1
+            every { userRepository.deleteByGithubUsername(any()) } returns 1
 
             assertDoesNotThrow { userService.deleteUser(githubUsername) }
 
-            verify { userRepository.deleteUserByGithubUsername(githubUsername) }
+            verify { userRepository.deleteByGithubUsername(githubUsername) }
         }
     }
 

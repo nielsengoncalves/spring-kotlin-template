@@ -17,7 +17,7 @@ class UserService(
 ) {
 
     fun createUser(githubUsername: String): User {
-        val existingUser = userRepository.findUserByGithubUsername(githubUsername)
+        val existingUser = userRepository.findByGithubUsername(githubUsername)
         if (existingUser != null) return existingUser
 
         val githubUser = githubClient.findGithubUser(githubUsername)
@@ -34,16 +34,16 @@ class UserService(
             createdAt = datetimeProvider.currentTime(),
             updatedAt = datetimeProvider.currentTime()
         )
-        userRepository.insertUser(newUser)
+        userRepository.insert(newUser)
 
         return newUser
     }
 
     fun getUser(githubUsername: String): User =
-        userRepository.findUserByGithubUsername(githubUsername)
+        userRepository.findByGithubUsername(githubUsername)
             ?: throw ResourceNotFoundException("User `$githubUsername` not found")
 
     fun deleteUser(githubUsername: String) {
-        userRepository.deleteUserByGithubUsername(githubUsername)
+        userRepository.deleteByGithubUsername(githubUsername)
     }
 }
