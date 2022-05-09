@@ -7,6 +7,7 @@ import com.example.template.model.User
 import com.example.template.repository.UserRepository
 import com.example.template.util.DatetimeProvider
 import com.example.template.util.UuidProvider
+import feign.FeignException.NotFound
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.mockk.confirmVerified
@@ -73,11 +74,12 @@ class UserServiceTest {
         }
 
         @Test
-        fun `it should raise IllegalArgumentException if user is not found on Github`() {
+        fun `it should raise NotFound when user is not found on Github`() {
+            val notFoundException: NotFound = mockk()
             every { userRepository.findByGithubUsername(any()) } returns null
-            every { githubClient.findGithubUser(any()) } returns null
+            every { githubClient.findGithubUser(any()) } throws notFoundException
 
-            shouldThrow<IllegalArgumentException> {
+            shouldThrow<NotFound> {
                 userService.createUser(githubUsername)
             }
 

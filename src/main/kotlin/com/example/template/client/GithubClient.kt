@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 interface GithubClient {
 
     @RequestMapping(method = [RequestMethod.GET], value = ["/users/{username}"])
-    fun findGithubUser(@PathVariable("username") githubUsername: String): GithubUser?
+    fun findGithubUser(@PathVariable("username") githubUsername: String): GithubUser
 }
 
 data class GithubUser(

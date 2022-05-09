@@ -32,6 +32,7 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("io.mockk:mockk:1.12.3")
     testImplementation("io.kotest:kotest-assertions-core:5.3.0")
+    testImplementation("org.mock-server:mockserver-netty:5.13.2")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }
 

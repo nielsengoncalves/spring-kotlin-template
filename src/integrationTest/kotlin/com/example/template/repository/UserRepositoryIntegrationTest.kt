@@ -21,7 +21,7 @@ class UserRepositoryIntegrationTest : RepositoryIntegrationTest() {
     inner class InsertTest {
 
         @Test
-        fun `should insert user`() {
+        fun `it should insert user`() {
             val actualResult = userRepository.insert(user)
 
             actualResult shouldBe 1
@@ -33,7 +33,7 @@ class UserRepositoryIntegrationTest : RepositoryIntegrationTest() {
     inner class FindByGithubUsernameTest {
 
         @Test
-        fun `should find user by github username`() {
+        fun `it should find user by github username`() {
             dslContext.insertUserRecord(userRecord)
 
             val actualResult = userRepository.findByGithubUsername(userRecord.githubUsername!!)
@@ -42,7 +42,7 @@ class UserRepositoryIntegrationTest : RepositoryIntegrationTest() {
         }
 
         @Test
-        fun `should return null if record is not found`() {
+        fun `it should return null if record is not found`() {
             val actualResult = userRepository.findByGithubUsername("invalid")
 
             actualResult shouldBe null
@@ -53,7 +53,7 @@ class UserRepositoryIntegrationTest : RepositoryIntegrationTest() {
     inner class DeleteByGithubUsernameTest {
 
         @Test
-        fun `should delete user by github username`() {
+        fun `it should delete user by github username`() {
             dslContext.insertUserRecord(userRecord)
 
             val actualResult = userRepository.deleteByGithubUsername(userRecord.githubUsername!!)

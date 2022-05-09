@@ -21,7 +21,6 @@ class UserService(
         if (existingUser != null) return existingUser
 
         val githubUser = githubClient.findGithubUser(githubUsername)
-            ?: throw IllegalArgumentException("User `$githubUsername` not found on Github")
 
         val newUser = User(
             id = uuidProvider.randomUuid(),

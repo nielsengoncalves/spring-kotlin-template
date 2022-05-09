@@ -11,3 +11,9 @@ spring:
 
   flyway:
     enabled: true
+
+feign:
+  client:
+    config:
+      github:
+        url: "http://localhost:8090"
