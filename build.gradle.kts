@@ -30,10 +30,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
-    testImplementation("io.mockk:mockk:1.12.3")
-    testImplementation("io.kotest:kotest-assertions-core:5.3.0")
+    testImplementation("io.mockk:mockk:1.12.5")
+    testImplementation("io.kotest:kotest-assertions-core:5.4.1")
     testImplementation("org.mock-server:mockserver-netty:5.13.2")
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") {}
 }
 
 dependencyManagement {

@@ -7,10 +7,10 @@ import java.util.UUID
 
 @Component
 class UuidProvider {
-    fun randomUuid() = UUID.randomUUID()
+    fun randomUuid(): UUID = UUID.randomUUID()
 }
 
 @Component
 class DatetimeProvider {
-    fun currentTime() = LocalDateTime.now(Clock.systemUTC())
+    fun currentTime(): LocalDateTime = LocalDateTime.now(Clock.systemUTC())
 }
